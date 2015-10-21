@@ -1,7 +1,41 @@
+drop table address;
+drop table albums;
+drop sequence album_seq;
 drop table songs;
 drop sequence song_seq;
 drop table instruments;
 drop sequence instr_seq;
+
+CREATE TABLE address
+(
+	address VARCHAR2(127) NOT NULL,
+	phone NUMBER NOT NULL,
+	CONSTRAINT address_pk PRIMARY KEY(address),
+	CONSTRAINT phone_unq UNIQUE (phone)
+);
+
+CREATE TABLE albums
+(
+	album_id NUMBER not null,
+	album_title VARCHAR2(127) NOT NULL,
+	album_copy DATE NOT NULL,
+	album_format VARCHAR2(32) NOT NULL,
+	CONSTRAINT album_pk PRIMARY KEY (album_id)
+);
+
+CREATE SEQUENCE album_seq;
+
+CREATE OR REPLACE TRIGGER album_inc
+BEFORE INSERT ON albums
+FOR EACH ROW
+
+BEGIN
+  SELECT album_seq.NEXTVAL
+  INTO :new.album_id
+  FROM dual;
+END;
+/
+
 
 CREATE TABLE songs
 (
