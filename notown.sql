@@ -1,8 +1,9 @@
 drop table songs;
 drop sequence song_seq;
---drop trigger song_inc;
+drop table instruments;
+drop sequence instr_seq;
 
-create table songs 
+CREATE TABLE songs
 (
 	song_id number not null,
 	title varchar2(127) not null,
@@ -12,7 +13,7 @@ create table songs
 
 CREATE SEQUENCE song_seq;
 
-CREATE TRIGGER song_inc
+CREATE OR REPLACE TRIGGER song_inc
 BEFORE INSERT ON songs
 FOR EACH ROW
 
@@ -32,7 +33,7 @@ CREATE TABLE instruments
 
 CREATE SEQUENCE instr_seq;
 
-CREATE TRIGGER instr_inc
+CREATE OR REPLACE TRIGGER instr_inc
 BEFORE INSERT ON instruments
 FOR EACH ROW
 
