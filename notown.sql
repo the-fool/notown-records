@@ -1,4 +1,6 @@
-drop table address;
+drop table musicians;
+drop sequence m_seq;
+drop table addresses;
 drop table albums;
 drop sequence album_seq;
 drop table songs;
@@ -6,13 +8,38 @@ drop sequence song_seq;
 drop table instruments;
 drop sequence instr_seq;
 
-CREATE TABLE address
+CREATE TABLE addresses
 (
 	address VARCHAR2(127) NOT NULL,
 	phone NUMBER NOT NULL,
 	CONSTRAINT address_pk PRIMARY KEY(address),
 	CONSTRAINT phone_unq UNIQUE (phone)
 );
+
+CREATE TABLE musicians
+(
+	ssn NUMBER NOT NULL,
+	m_name VARCHAR(127) NOT NULL,
+	m_address VARCHAR(127) DEFAULT 'homeless',
+	CONSTRAINT m_pk PRIMARY KEY(ssn),
+	CONSTRAINT m_ref 
+	  FOREIGN KEY(m_address)
+	  REFERENCES addresses(address)
+	    ON DELETE SET NULL
+);
+
+CREATE SEQUENCE m_seq;
+
+CREATE OR REPLACE TRIGGER m_inc
+BEFORE INSERT ON musicians
+FOR EACH ROW
+
+BEGIN
+  SELECT m_seq.NEXTVAL + 33322444   
+  INTO :new.ssn
+  FROM dual;
+END;
+/
 
 CREATE TABLE albums
 (
