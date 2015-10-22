@@ -22,7 +22,7 @@ CREATE TABLE musicians
 	m_name VARCHAR(127) NOT NULL,
 	m_address VARCHAR(127) DEFAULT 'homeless',
 	CONSTRAINT m_pk PRIMARY KEY(ssn),
-	CONSTRAINT m_ref 
+	CONSTRAINT m_address_fk
 	  FOREIGN KEY(m_address)
 	  REFERENCES addresses(address)
 	    ON DELETE SET NULL
@@ -47,7 +47,12 @@ CREATE TABLE albums
 	album_title VARCHAR2(127) NOT NULL,
 	album_copy DATE NOT NULL,
 	album_format VARCHAR2(32) NOT NULL,
-	CONSTRAINT album_pk PRIMARY KEY (album_id)
+	album_producer NUMBER NOT NULL,
+	CONSTRAINT album_pk 
+	  PRIMARY KEY (album_id),
+	CONSTRAINT album_prod_fk
+	  FOREIGN KEY (album_producer)
+	  REFERENCES musicians(ssn)
 );
 
 CREATE SEQUENCE album_seq;
