@@ -1,4 +1,5 @@
-drop table plays;
+drop table musician_performs_song;
+drop table musician_plays_instrument;
 drop sequence m_seq;
 drop table songs;
 drop table albums;
@@ -116,7 +117,7 @@ BEGIN
 END;
 /
 
-CREATE TABLE plays
+CREATE TABLE musician_plays_instrument
 (
 	m_ssn NUMBER NOT NULL,
 	instr_id NUMBER NOT NULL,
@@ -129,6 +130,22 @@ CREATE TABLE plays
 	CONSTRAINT plays_instr_fk
 	  FOREIGN KEY (instr_id)
 	  REFERENCES instruments(instr_id)
+	  ON DELETE CASCADE
+);
+
+CREATE TABLE musician_performs_song
+(
+	m_ssn NUMBER NOT NULL,
+	song_id NUMBER NOT NULL,
+	CONSTRAINT performs_pk
+	  PRIMARY KEY (m_ssn, song_id),
+	CONSTRAINT performs_m_fk 
+	  FOREIGN KEY (m_ssn)
+	  REFERENCES musicians(ssn)
+	  ON DELETE CASCADE,
+	CONSTRAINT performs_song_fk
+	  FOREIGN KEY (song_id)
+	  REFERENCES songs(song_id)
 	  ON DELETE CASCADE
 );
 
