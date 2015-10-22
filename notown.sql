@@ -1,9 +1,9 @@
-drop table musicians;
 drop sequence m_seq;
-drop table addresses;
+drop table songs;
 drop table albums;
 drop sequence album_seq;
-drop table songs;
+drop table musicians;
+drop table addresses;
 drop sequence song_seq;
 drop table instruments;
 drop sequence instr_seq;
@@ -74,7 +74,12 @@ CREATE TABLE songs
 	song_id number not null,
 	title varchar2(127) not null,
 	author varchar2(127) not null,
-	CONSTRAINT song_pk PRIMARY KEY (song_id)
+	album NUMBER,
+	CONSTRAINT song_pk PRIMARY KEY (song_id),
+	CONSTRAINT song_album_fk 
+	  FOREIGN KEY (album)
+	  REFERENCES albums(album_id)
+	  ON DELETE SET NULL
 );
 
 CREATE SEQUENCE song_seq;
