@@ -22,7 +22,7 @@ CREATE TABLE musicians
 (
 	ssn NUMBER NOT NULL,
 	m_name VARCHAR(127) NOT NULL,
-	m_address VARCHAR(127) DEFAULT 'homeless',
+	m_address VARCHAR(127),
 	CONSTRAINT m_pk PRIMARY KEY(ssn),
 	CONSTRAINT m_address_fk
 	  FOREIGN KEY(m_address)
@@ -148,6 +148,3 @@ CREATE TABLE musician_performs_song
 	  REFERENCES songs(song_id)
 	  ON DELETE CASCADE
 );
-
-
-
