@@ -1,3 +1,4 @@
+drop table plays;
 drop sequence m_seq;
 drop table songs;
 drop table albums;
@@ -114,3 +115,22 @@ BEGIN
   FROM dual;
 END;
 /
+
+CREATE TABLE plays
+(
+	m_ssn NUMBER NOT NULL,
+	instr_id NUMBER NOT NULL,
+	CONSTRAINT plays_pk
+	  PRIMARY KEY (m_ssn, instr_id),
+	CONSTRAINT play_m_fk 
+	  FOREIGN KEY (m_ssn)
+	  REFERENCES musicians(ssn)
+	  ON DELETE CASCADE,
+	CONSTRAINT plays_instr_fk
+	  FOREIGN KEY (instr_id)
+	  REFERENCES instruments(instr_id)
+	  ON DELETE CASCADE
+);
+
+
+
